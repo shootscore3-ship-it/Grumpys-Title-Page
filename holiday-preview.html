@@ -202,6 +202,193 @@ html, body {
   box-shadow: 0 0 8px rgba(255,216,107,0.35);
 }
 
+/* New Year's clock */
+.midnight-clock {
+  display: none;
+  position: absolute;
+  left: 50%;
+  top: 42%;
+  width: 780px;
+  height: 780px;
+  transform: translate(-50%, -50%);
+  z-index: 1;
+  opacity: 0.18;
+  pointer-events: none;
+}
+
+.newyear .midnight-clock {
+  display: block;
+}
+
+.clock-face {
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  border: 6px solid rgba(255, 214, 120, 0.35);
+  box-shadow:
+    0 0 55px rgba(255, 190, 80, 0.18),
+    inset 0 0 60px rgba(255, 190, 80, 0.10);
+}
+
+.clock-face::before {
+  content: "";
+  position: absolute;
+  inset: 38px;
+  border-radius: 50%;
+  border: 2px solid rgba(255, 214, 120, 0.18);
+}
+
+.clock-face::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  background:
+    linear-gradient(0deg, transparent 48%, rgba(255,214,120,0.35) 49%, rgba(255,214,120,0.35) 51%, transparent 52%),
+    linear-gradient(30deg, transparent 49%, rgba(255,214,120,0.18) 50%, transparent 51%),
+    linear-gradient(60deg, transparent 49%, rgba(255,214,120,0.18) 50%, transparent 51%),
+    linear-gradient(90deg, transparent 48%, rgba(255,214,120,0.35) 49%, rgba(255,214,120,0.35) 51%, transparent 52%),
+    linear-gradient(120deg, transparent 49%, rgba(255,214,120,0.18) 50%, transparent 51%),
+    linear-gradient(150deg, transparent 49%, rgba(255,214,120,0.18) 50%, transparent 51%);
+  opacity: 0.32;
+}
+
+.clock-hand {
+  position: absolute;
+  left: 50%;
+  bottom: 50%;
+  transform-origin: bottom center;
+  border-radius: 999px;
+  background: rgba(255, 224, 150, 0.5);
+  box-shadow: 0 0 14px rgba(255, 224, 150, 0.35);
+}
+
+.hour-hand {
+  width: 14px;
+  height: 185px;
+  transform: translateX(-50%) rotate(0deg);
+}
+
+.minute-hand {
+  width: 8px;
+  height: 285px;
+  transform: translateX(-50%) rotate(0deg);
+}
+
+/* New Year's fireworks */
+.fireworks-layer {
+  display: none;
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.newyear .fireworks-layer {
+  display: block;
+}
+
+.firework {
+  position: absolute;
+  width: 260px;
+  height: 260px;
+  border-radius: 50%;
+  opacity: 0.75;
+  animation: fireworkPop 3.2s ease-in-out infinite;
+}
+
+.firework::before,
+.firework::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  background:
+    linear-gradient(0deg, transparent 46%, rgba(255, 224, 145, 0.95) 49%, transparent 52%),
+    linear-gradient(20deg, transparent 47%, rgba(255, 255, 255, 0.75) 50%, transparent 53%),
+    linear-gradient(40deg, transparent 47%, rgba(255, 204, 88, 0.9) 50%, transparent 53%),
+    linear-gradient(60deg, transparent 47%, rgba(255, 255, 255, 0.65) 50%, transparent 53%),
+    linear-gradient(80deg, transparent 47%, rgba(255, 204, 88, 0.85) 50%, transparent 53%),
+    linear-gradient(100deg, transparent 47%, rgba(255, 255, 255, 0.7) 50%, transparent 53%),
+    linear-gradient(120deg, transparent 47%, rgba(255, 204, 88, 0.85) 50%, transparent 53%),
+    linear-gradient(140deg, transparent 47%, rgba(255, 255, 255, 0.65) 50%, transparent 53%),
+    linear-gradient(160deg, transparent 47%, rgba(255, 204, 88, 0.9) 50%, transparent 53%);
+  filter: drop-shadow(0 0 12px rgba(255, 214, 120, 0.65));
+}
+
+.firework::after {
+  transform: rotate(10deg) scale(0.72);
+  opacity: 0.65;
+}
+
+.firework-left {
+  left: 7%;
+  top: 21%;
+  animation-delay: 0s;
+}
+
+.firework-right {
+  right: 7%;
+  top: 18%;
+  animation-delay: 1.1s;
+  transform: scale(0.9);
+}
+
+.firework-small {
+  right: 16%;
+  bottom: 24%;
+  width: 185px;
+  height: 185px;
+  animation-delay: 2.1s;
+  opacity: 0.55;
+}
+
+@keyframes fireworkPop {
+  0% { transform: scale(0.25); opacity: 0; }
+  28% { opacity: 0.85; }
+  55% { transform: scale(1); opacity: 0.55; }
+  100% { transform: scale(1.18); opacity: 0; }
+}
+
+/* New Year's streamers */
+.streamers-layer {
+  display: none;
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.newyear .streamers-layer {
+  display: block;
+}
+
+.streamer {
+  position: absolute;
+  width: 170px;
+  height: 10px;
+  border-radius: 999px;
+  opacity: 0.72;
+  background: linear-gradient(90deg, transparent, #ffd86b, #fff3c4, transparent);
+  box-shadow: 0 0 12px rgba(255, 216, 107, 0.35);
+  animation: streamerFly linear infinite;
+}
+
+@keyframes streamerFly {
+  from {
+    transform: translateX(-25vw) translateY(0) rotate(var(--rot));
+    opacity: 0;
+  }
+  12% { opacity: 0.85; }
+  88% { opacity: 0.75; }
+  to {
+    transform: translateX(130vw) translateY(var(--drop)) rotate(calc(var(--rot) + 70deg));
+    opacity: 0;
+  }
+}
+
 /* Valentine's */
 .valentine {
   background:
@@ -428,6 +615,20 @@ html, body {
     <div class="flag"></div>
     <div class="holiday-lights"></div>
     <div class="fog"></div>
+
+    <div class="midnight-clock">
+      <div class="clock-face"></div>
+      <div class="clock-hand hour-hand"></div>
+      <div class="clock-hand minute-hand"></div>
+    </div>
+
+    <div class="fireworks-layer">
+      <div class="firework firework-left"></div>
+      <div class="firework firework-right"></div>
+      <div class="firework firework-small"></div>
+    </div>
+
+    <div class="streamers-layer" id="streamers"></div>
     <div id="particles" class="particle-layer"></div>
 
     <div class="content">
@@ -456,7 +657,7 @@ const themes = {
     button: "New Year",
     className: "newyear",
     label: "Happy New Year from Grumpy's",
-    particles: 90
+    particles: 55
   },
   valentine: {
     button: "Valentine's",
@@ -519,6 +720,7 @@ function setTheme(key) {
   });
 
   makeParticles(theme);
+  makeStreamers(theme);
 }
 
 function makeParticles(theme) {
@@ -535,9 +737,9 @@ function makeParticles(theme) {
 
     if (theme.className === "newyear") {
       p.style.background = ["#ffd86b", "#fff3c4", "#ffffff", "#c99b36"][Math.floor(Math.random() * 4)];
-      p.style.width = (5 + Math.random() * 7) + "px";
-      p.style.height = (10 + Math.random() * 18) + "px";
-      p.style.opacity = 0.55 + Math.random() * 0.35;
+      p.style.width = (4 + Math.random() * 6) + "px";
+      p.style.height = (8 + Math.random() * 14) + "px";
+      p.style.opacity = 0.38 + Math.random() * 0.28;
     }
 
     if (theme.className === "patriotic") {
@@ -549,6 +751,36 @@ function makeParticles(theme) {
     }
 
     particles.appendChild(p);
+  }
+}
+
+function makeStreamers(theme) {
+  const streamers = document.getElementById("streamers");
+  if (!streamers) return;
+
+  streamers.innerHTML = "";
+
+  if (theme.className !== "newyear") return;
+
+  const colors = [
+    "linear-gradient(90deg, transparent, #ffd86b, #fff3c4, transparent)",
+    "linear-gradient(90deg, transparent, #ffffff, #ffd86b, transparent)",
+    "linear-gradient(90deg, transparent, #c99b36, #fff3c4, transparent)"
+  ];
+
+  for (let i = 0; i < 16; i++) {
+    const s = document.createElement("div");
+    s.className = "streamer";
+
+    s.style.top = Math.random() * 95 + "vh";
+    s.style.left = "-20vw";
+    s.style.background = colors[Math.floor(Math.random() * colors.length)];
+    s.style.animationDuration = (7 + Math.random() * 8) + "s";
+    s.style.animationDelay = (-Math.random() * 10) + "s";
+    s.style.setProperty("--rot", (-35 + Math.random() * 70) + "deg");
+    s.style.setProperty("--drop", (-130 + Math.random() * 260) + "px");
+
+    streamers.appendChild(s);
   }
 }
 
