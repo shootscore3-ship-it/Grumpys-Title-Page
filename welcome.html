@@ -52,7 +52,7 @@ html, body {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  padding-bottom: 15px;
+  padding-bottom: 95px;
   text-align: center;
 }
 
@@ -88,10 +88,6 @@ html, body {
   animation: fadeUp 1.2s ease-out both 0.6s;
 }
 
-.tagline {
-  display: none;
-}
-
 @keyframes fadeUp {
   from { opacity: 0; transform: translateY(28px); }
   to { opacity: 1; transform: translateY(0); }
@@ -99,17 +95,19 @@ html, body {
 
 .theme-label {
   position: absolute;
-  bottom: 36px;
+  bottom: 54px;
   left: 0;
   right: 0;
   z-index: 12;
   text-align: center;
-  font-size: 28px;
-  font-weight: 900;
+  font-size: 34px;
+  font-weight: 950;
   letter-spacing: 2px;
   text-transform: uppercase;
   color: #ffd58a;
-  text-shadow: 0 3px 10px #000;
+  text-shadow:
+    0 4px 0 #000,
+    0 0 18px rgba(255,196,99,0.35);
 }
 
 .particle-layer {
@@ -142,19 +140,46 @@ html, body {
   to { transform: translateY(-15vh); opacity: 0; }
 }
 
+/* New Year */
 .newyear {
   background:
-    radial-gradient(circle at 50% 37%, rgba(255,215,89,0.30), transparent 38%),
-    linear-gradient(135deg, #030303, #15100a 50%, #030303);
+    radial-gradient(circle at 50% 34%, rgba(255, 215, 110, 0.42), transparent 32%),
+    radial-gradient(circle at 22% 22%, rgba(255, 255, 255, 0.10), transparent 18%),
+    radial-gradient(circle at 78% 20%, rgba(255, 190, 80, 0.12), transparent 20%),
+    radial-gradient(circle at 50% 110%, rgba(255, 170, 45, 0.16), transparent 35%),
+    linear-gradient(135deg, #020202 0%, #15100a 45%, #050505 100%);
+}
+
+.newyear::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  background:
+    radial-gradient(circle at 18% 30%, rgba(255, 220, 120, 0.0) 0 3%, rgba(255, 220, 120, 0.18) 4%, transparent 7%),
+    radial-gradient(circle at 82% 28%, rgba(255, 255, 255, 0.0) 0 3%, rgba(255, 255, 255, 0.14) 4%, transparent 7%),
+    radial-gradient(circle at 72% 68%, rgba(255, 190, 70, 0.0) 0 3%, rgba(255, 190, 70, 0.14) 4%, transparent 7%);
+  animation: fireworksPulse 3.8s ease-in-out infinite alternate;
+  opacity: 0.9;
+}
+
+@keyframes fireworksPulse {
+  0% { opacity: 0.25; transform: scale(0.96); }
+  45% { opacity: 0.85; transform: scale(1.02); }
+  100% { opacity: 0.35; transform: scale(1.08); }
 }
 
 .newyear .particle {
-  width: 9px;
-  height: 18px;
+  width: 8px;
+  height: 16px;
   background: #ffd86b;
+  border-radius: 2px;
   animation-name: confettiFall;
+  box-shadow: 0 0 8px rgba(255,216,107,0.35);
 }
 
+/* Valentine's */
 .valentine {
   background:
     radial-gradient(circle at 50% 37%, rgba(255,55,120,0.28), transparent 38%),
@@ -169,6 +194,7 @@ html, body {
 
 .valentine .particle::before { content: "♥"; }
 
+/* St. Patrick's */
 .stpatricks {
   background:
     radial-gradient(circle at 50% 37%, rgba(44,255,126,0.25), transparent 38%),
@@ -183,6 +209,7 @@ html, body {
 
 .stpatricks .particle::before { content: "☘"; }
 
+/* Spring */
 .spring {
   background:
     radial-gradient(circle at 50% 37%, rgba(255,225,145,0.24), transparent 38%),
@@ -197,6 +224,7 @@ html, body {
   animation-name: floatUp;
 }
 
+/* Patriotic */
 .patriotic {
   background:
     linear-gradient(180deg, rgba(0,22,78,0.88), rgba(85,0,0,0.64)),
@@ -255,6 +283,7 @@ html, body {
   100% { transform: translateY(20vh) scale(0); opacity: 0; }
 }
 
+/* Halloween */
 .halloween {
   background:
     radial-gradient(circle at 50% 37%, rgba(255,107,31,0.28), transparent 38%),
@@ -298,6 +327,7 @@ html, body {
   to { transform: translateX(4%); }
 }
 
+/* Fall */
 .fall {
   background:
     radial-gradient(circle at 50% 37%, rgba(255,142,56,0.26), transparent 38%),
@@ -317,6 +347,7 @@ html, body {
   to { transform: translateY(115vh) rotate(280deg); opacity: 0; }
 }
 
+/* Christmas */
 .christmas {
   background:
     radial-gradient(circle at 50% 37%, rgba(255,45,45,0.22), transparent 36%),
@@ -379,7 +410,6 @@ html, body {
     <div class="content">
       <img class="logo" src="./grumpys-logo.png" alt="Grumpy's Logo">
       <div class="hours">Open Every Day at 11 AM</div>
-      <div class="tagline" id="tagline">Cold drinks • Good food • Pull tabs • Local sports</div>
     </div>
 
     <div class="theme-label" id="themeLabel"></div>
@@ -388,7 +418,6 @@ html, body {
 <script>
 const screen = document.getElementById("screen");
 const particles = document.getElementById("particles");
-const tagline = document.getElementById("tagline");
 const themeLabel = document.getElementById("themeLabel");
 
 const now = new Date();
@@ -397,53 +426,52 @@ const day = now.getDate();
 
 function getTheme(month, day) {
   if ((month === 12 && day >= 31) || (month === 1 && day <= 2)) {
-    return { className: "newyear", label: "Happy New Year from Grumpy's", tagline: "Cheers to good friends and cold drinks", particles: 80 };
+    return { className: "newyear", label: "Happy New Year from Grumpy's", particles: 90 };
   }
 
   if (month === 2 && day >= 10 && day <= 14) {
-    return { className: "valentine", label: "Happy Valentine's Day", tagline: "Bring someone you love — or someone you can tolerate", particles: 45 };
+    return { className: "valentine", label: "Happy Valentine's Day", particles: 45 };
   }
 
   if (month === 3 && day >= 10 && day <= 17) {
-    return { className: "stpatricks", label: "St. Patrick's Week at Grumpy's", tagline: "Cold beer • Green vibes • Good times", particles: 50 };
+    return { className: "stpatricks", label: "St. Patrick's Week at Grumpy's", particles: 50 };
   }
 
   if ((month === 3 && day >= 25) || (month === 4 && day <= 20)) {
-    return { className: "spring", label: "Spring at Grumpy's", tagline: "Cold drinks • Good food • Fresh spring vibes", particles: 45 };
+    return { className: "spring", label: "Spring at Grumpy's", particles: 45 };
   }
 
   if (month === 5 && day >= 24 && day <= 31) {
-    return { className: "patriotic", label: "Memorial Day Weekend at Grumpy's", tagline: "Open every day at 11 AM", particles: 55 };
+    return { className: "patriotic", label: "Memorial Day Weekend at Grumpy's", particles: 55 };
   }
 
   if (month === 7 && day >= 1 && day <= 6) {
-    return { className: "patriotic", label: "Happy Fourth of July from Grumpy's", tagline: "Cold drinks • Good food • Red, white & blue", particles: 70 };
+    return { className: "patriotic", label: "Happy Fourth of July from Grumpy's", particles: 70 };
   }
 
   if (month === 10 && day >= 20 && day <= 31) {
-    return { className: "halloween", label: "Halloween at Grumpy's", tagline: "Cold drinks • Spooky vibes • Good times", particles: 18 };
+    return { className: "halloween", label: "Halloween at Grumpy's", particles: 18 };
   }
 
   if (month === 11 && day >= 1 && day <= 30) {
-    return { className: "fall", label: "Fall at Grumpy's", tagline: "Cold drinks • Good food • Cozy bar nights", particles: 35 };
+    return { className: "fall", label: "Fall at Grumpy's", particles: 35 };
   }
 
   if (month === 12 && day >= 1 && day <= 30) {
-    return { className: "christmas", label: "Merry Christmas from Grumpy's", tagline: "Cold drinks • Warm company • Holiday cheer", particles: 95 };
+    return { className: "christmas", label: "Merry Christmas from Grumpy's", particles: 95 };
   }
 
-  return { className: "normal", label: "", tagline: "Cold drinks • Good food • Pull tabs • Local sports", particles: 45 };
+  return { className: "normal", label: "", particles: 45 };
 }
 
 const theme = getTheme(month, day);
 screen.className = "screen " + theme.className;
-tagline.textContent = theme.tagline;
 themeLabel.textContent = theme.label;
 
-function makeParticles(count) {
+function makeParticles(theme) {
   particles.innerHTML = "";
 
-  for (let i = 0; i < count; i++) {
+  for (let i = 0; i < theme.particles; i++) {
     const p = document.createElement("div");
     p.className = "particle";
 
@@ -453,9 +481,10 @@ function makeParticles(count) {
     p.style.animationDelay = (-Math.random() * 12) + "s";
 
     if (theme.className === "newyear") {
-      p.style.background = ["#ffd86b", "#ffffff", "#ff6b6b", "#7ad7ff"][Math.floor(Math.random() * 4)];
-      p.style.width = (7 + Math.random() * 8) + "px";
-      p.style.height = (12 + Math.random() * 16) + "px";
+      p.style.background = ["#ffd86b", "#fff3c4", "#ffffff", "#c99b36"][Math.floor(Math.random() * 4)];
+      p.style.width = (5 + Math.random() * 7) + "px";
+      p.style.height = (10 + Math.random() * 18) + "px";
+      p.style.opacity = 0.55 + Math.random() * 0.35;
     }
 
     if (theme.className === "patriotic") {
@@ -470,7 +499,7 @@ function makeParticles(count) {
   }
 }
 
-makeParticles(theme.particles);
+makeParticles(theme);
 </script>
 </body>
 </html>
