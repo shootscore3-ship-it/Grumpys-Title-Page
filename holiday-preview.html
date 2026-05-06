@@ -53,7 +53,7 @@ html, body {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  padding-bottom: 15px;
+  padding-bottom: 95px;
   text-align: center;
 }
 
@@ -83,10 +83,6 @@ html, body {
     0 0 24px rgba(255,196,99,0.38);
 }
 
-.tagline {
-  display: none;
-}
-
 .theme-label {
   position: absolute;
   bottom: 104px;
@@ -94,12 +90,14 @@ html, body {
   right: 0;
   z-index: 12;
   text-align: center;
-  font-size: 28px;
-  font-weight: 900;
+  font-size: 34px;
+  font-weight: 950;
   letter-spacing: 2px;
   text-transform: uppercase;
   color: #ffd58a;
-  text-shadow: 0 3px 10px #000;
+  text-shadow:
+    0 4px 0 #000,
+    0 0 18px rgba(255,196,99,0.35);
 }
 
 .controls {
@@ -165,19 +163,46 @@ html, body {
   to { transform: translateY(-15vh); opacity: 0; }
 }
 
+/* New Year */
 .newyear {
   background:
-    radial-gradient(circle at 50% 37%, rgba(255,215,89,0.30), transparent 38%),
-    linear-gradient(135deg, #030303, #15100a 50%, #030303);
+    radial-gradient(circle at 50% 34%, rgba(255, 215, 110, 0.42), transparent 32%),
+    radial-gradient(circle at 22% 22%, rgba(255, 255, 255, 0.10), transparent 18%),
+    radial-gradient(circle at 78% 20%, rgba(255, 190, 80, 0.12), transparent 20%),
+    radial-gradient(circle at 50% 110%, rgba(255, 170, 45, 0.16), transparent 35%),
+    linear-gradient(135deg, #020202 0%, #15100a 45%, #050505 100%);
+}
+
+.newyear::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  background:
+    radial-gradient(circle at 18% 30%, rgba(255, 220, 120, 0.0) 0 3%, rgba(255, 220, 120, 0.18) 4%, transparent 7%),
+    radial-gradient(circle at 82% 28%, rgba(255, 255, 255, 0.0) 0 3%, rgba(255, 255, 255, 0.14) 4%, transparent 7%),
+    radial-gradient(circle at 72% 68%, rgba(255, 190, 70, 0.0) 0 3%, rgba(255, 190, 70, 0.14) 4%, transparent 7%);
+  animation: fireworksPulse 3.8s ease-in-out infinite alternate;
+  opacity: 0.9;
+}
+
+@keyframes fireworksPulse {
+  0% { opacity: 0.25; transform: scale(0.96); }
+  45% { opacity: 0.85; transform: scale(1.02); }
+  100% { opacity: 0.35; transform: scale(1.08); }
 }
 
 .newyear .particle {
-  width: 9px;
-  height: 18px;
+  width: 8px;
+  height: 16px;
   background: #ffd86b;
+  border-radius: 2px;
   animation-name: confettiFall;
+  box-shadow: 0 0 8px rgba(255,216,107,0.35);
 }
 
+/* Valentine's */
 .valentine {
   background:
     radial-gradient(circle at 50% 37%, rgba(255,55,120,0.28), transparent 38%),
@@ -192,6 +217,7 @@ html, body {
 
 .valentine .particle::before { content: "♥"; }
 
+/* St. Patrick's */
 .stpatricks {
   background:
     radial-gradient(circle at 50% 37%, rgba(44,255,126,0.25), transparent 38%),
@@ -206,6 +232,7 @@ html, body {
 
 .stpatricks .particle::before { content: "☘"; }
 
+/* Spring */
 .spring {
   background:
     radial-gradient(circle at 50% 37%, rgba(255,225,145,0.24), transparent 38%),
@@ -220,6 +247,7 @@ html, body {
   animation-name: floatUp;
 }
 
+/* Patriotic */
 .patriotic {
   background:
     linear-gradient(180deg, rgba(0,22,78,0.88), rgba(85,0,0,0.64)),
@@ -278,6 +306,7 @@ html, body {
   100% { transform: translateY(20vh) scale(0); opacity: 0; }
 }
 
+/* Halloween */
 .halloween {
   background:
     radial-gradient(circle at 50% 37%, rgba(255,107,31,0.28), transparent 38%),
@@ -321,6 +350,7 @@ html, body {
   to { transform: translateX(4%); }
 }
 
+/* Fall */
 .fall {
   background:
     radial-gradient(circle at 50% 37%, rgba(255,142,56,0.26), transparent 38%),
@@ -340,6 +370,7 @@ html, body {
   to { transform: translateY(115vh) rotate(280deg); opacity: 0; }
 }
 
+/* Christmas */
 .christmas {
   background:
     radial-gradient(circle at 50% 37%, rgba(255,45,45,0.22), transparent 36%),
@@ -402,7 +433,6 @@ html, body {
     <div class="content">
       <img class="logo" src="./grumpys-logo.png" alt="Grumpy's Logo">
       <div class="hours">Open Every Day at 11 AM</div>
-      <div class="tagline" id="tagline">Cold drinks • Good food • Pull tabs • Local sports</div>
     </div>
 
     <div class="theme-label" id="themeLabel"></div>
@@ -412,7 +442,6 @@ html, body {
 <script>
 const screen = document.getElementById("screen");
 const particles = document.getElementById("particles");
-const tagline = document.getElementById("tagline");
 const themeLabel = document.getElementById("themeLabel");
 const controls = document.getElementById("controls");
 
@@ -421,70 +450,60 @@ const themes = {
     button: "Normal",
     className: "normal",
     label: "",
-    tagline: "Cold drinks • Good food • Pull tabs • Local sports",
     particles: 45
   },
   newyear: {
     button: "New Year",
     className: "newyear",
     label: "Happy New Year from Grumpy's",
-    tagline: "Cheers to good friends and cold drinks",
-    particles: 80
+    particles: 90
   },
   valentine: {
     button: "Valentine's",
     className: "valentine",
     label: "Happy Valentine's Day",
-    tagline: "Bring someone you love — or someone you can tolerate",
     particles: 45
   },
   stpatricks: {
     button: "St. Patrick's",
     className: "stpatricks",
     label: "St. Patrick's Week at Grumpy's",
-    tagline: "Cold beer • Green vibes • Good times",
     particles: 50
   },
   spring: {
     button: "Spring",
     className: "spring",
     label: "Spring at Grumpy's",
-    tagline: "Cold drinks • Good food • Fresh spring vibes",
     particles: 45
   },
   memorial: {
     button: "Memorial Day",
     className: "patriotic",
     label: "Memorial Day Weekend at Grumpy's",
-    tagline: "Open every day at 11 AM",
     particles: 55
   },
   july4: {
     button: "Fourth of July",
     className: "patriotic",
     label: "Happy Fourth of July from Grumpy's",
-    tagline: "Cold drinks • Good food • Red, white & blue",
     particles: 70
   },
   halloween: {
     button: "Halloween",
     className: "halloween",
     label: "Halloween at Grumpy's",
-    tagline: "Cold drinks • Spooky vibes • Good times",
     particles: 18
   },
   thanksgiving: {
     button: "Thanksgiving/Fall",
     className: "fall",
     label: "Fall at Grumpy's",
-    tagline: "Cold drinks • Good food • Cozy bar nights",
     particles: 35
   },
   christmas: {
     button: "Christmas",
     className: "christmas",
     label: "Merry Christmas from Grumpy's",
-    tagline: "Cold drinks • Warm company • Holiday cheer",
     particles: 95
   }
 };
@@ -493,7 +512,6 @@ function setTheme(key) {
   const theme = themes[key];
 
   screen.className = "screen " + theme.className;
-  tagline.textContent = theme.tagline;
   themeLabel.textContent = theme.label;
 
   document.querySelectorAll(".controls button").forEach(btn => {
@@ -516,9 +534,10 @@ function makeParticles(theme) {
     p.style.animationDelay = (-Math.random() * 12) + "s";
 
     if (theme.className === "newyear") {
-      p.style.background = ["#ffd86b", "#ffffff", "#ff6b6b", "#7ad7ff"][Math.floor(Math.random() * 4)];
-      p.style.width = (7 + Math.random() * 8) + "px";
-      p.style.height = (12 + Math.random() * 16) + "px";
+      p.style.background = ["#ffd86b", "#fff3c4", "#ffffff", "#c99b36"][Math.floor(Math.random() * 4)];
+      p.style.width = (5 + Math.random() * 7) + "px";
+      p.style.height = (10 + Math.random() * 18) + "px";
+      p.style.opacity = 0.55 + Math.random() * 0.35;
     }
 
     if (theme.className === "patriotic") {
