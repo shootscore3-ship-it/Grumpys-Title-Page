@@ -26,8 +26,8 @@
     height: 100vh;
     overflow: hidden;
     background:
-      radial-gradient(circle at 50% 45%, rgba(255, 178, 74, 0.22), transparent 32%),
-      radial-gradient(circle at 20% 20%, rgba(255,255,255,0.08), transparent 25%),
+      radial-gradient(circle at 50% 42%, rgba(255, 178, 74, 0.24), transparent 34%),
+      radial-gradient(circle at 18% 22%, rgba(255,255,255,0.08), transparent 26%),
       linear-gradient(135deg, #050505, #16100a 50%, #050505);
     transition: background 0.6s ease;
   }
@@ -55,17 +55,17 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    padding-bottom: 45px;
+    padding-bottom: 10px;
     text-align: center;
   }
 
   .logo {
-    width: 350px;
-    height: 350px;
+    width: 560px;
+    height: 560px;
     object-fit: contain;
     filter:
-      drop-shadow(0 18px 22px rgba(0,0,0,0.85))
-      drop-shadow(0 0 28px rgba(255, 195, 91, 0.28));
+      drop-shadow(0 22px 28px rgba(0,0,0,0.9))
+      drop-shadow(0 0 42px rgba(255, 195, 91, 0.34));
     animation: logoPulse 4s ease-in-out infinite;
   }
 
@@ -74,29 +74,20 @@
     50% { transform: scale(1.025); }
   }
 
-  .main-title {
-    margin-top: 30px;
-    font-size: 92px;
-    font-weight: 950;
-    letter-spacing: 4px;
-    text-transform: uppercase;
-    text-shadow:
-      0 6px 0 #000,
-      0 0 25px rgba(255, 196, 99, 0.42);
-  }
-
   .hours {
-    margin-top: 18px;
-    font-size: 56px;
-    font-weight: 900;
+    margin-top: 28px;
+    font-size: 68px;
+    font-weight: 950;
     color: #ffd58a;
-    text-shadow: 0 4px 14px #000;
+    text-shadow:
+      0 5px 0 #000,
+      0 0 22px rgba(255, 196, 99, 0.35);
   }
 
   .tagline {
-    margin-top: 28px;
-    font-size: 32px;
-    font-weight: 800;
+    margin-top: 22px;
+    font-size: 34px;
+    font-weight: 850;
     letter-spacing: 1px;
     color: rgba(255,255,255,0.92);
     text-shadow: 0 3px 10px #000;
@@ -182,7 +173,7 @@
 
   .newyear {
     background:
-      radial-gradient(circle at 50% 45%, rgba(255, 215, 89, 0.28), transparent 34%),
+      radial-gradient(circle at 50% 42%, rgba(255, 215, 89, 0.28), transparent 34%),
       linear-gradient(135deg, #030303, #15100a 50%, #030303);
   }
 
@@ -195,7 +186,7 @@
 
   .valentine {
     background:
-      radial-gradient(circle at 50% 45%, rgba(255, 55, 120, 0.26), transparent 35%),
+      radial-gradient(circle at 50% 42%, rgba(255, 55, 120, 0.26), transparent 35%),
       linear-gradient(135deg, #090206, #220714 55%, #050505);
   }
 
@@ -211,7 +202,7 @@
 
   .stpatricks {
     background:
-      radial-gradient(circle at 50% 45%, rgba(44, 255, 126, 0.23), transparent 35%),
+      radial-gradient(circle at 50% 42%, rgba(44, 255, 126, 0.23), transparent 35%),
       linear-gradient(135deg, #021006, #062b13 55%, #020804);
   }
 
@@ -227,7 +218,7 @@
 
   .spring {
     background:
-      radial-gradient(circle at 50% 45%, rgba(255, 225, 145, 0.22), transparent 35%),
+      radial-gradient(circle at 50% 42%, rgba(255, 225, 145, 0.22), transparent 35%),
       linear-gradient(135deg, #08110a, #1d2211 55%, #060606);
   }
 
@@ -303,7 +294,7 @@
 
   .halloween {
     background:
-      radial-gradient(circle at 50% 45%, rgba(255, 107, 31, 0.26), transparent 34%),
+      radial-gradient(circle at 50% 42%, rgba(255, 107, 31, 0.26), transparent 34%),
       linear-gradient(135deg, #060105, #21102a 55%, #050505);
   }
 
@@ -350,7 +341,7 @@
 
   .fall {
     background:
-      radial-gradient(circle at 50% 45%, rgba(255, 142, 56, 0.24), transparent 34%),
+      radial-gradient(circle at 50% 42%, rgba(255, 142, 56, 0.24), transparent 34%),
       linear-gradient(135deg, #090504, #241107 55%, #050505);
   }
 
@@ -371,7 +362,7 @@
 
   .christmas {
     background:
-      radial-gradient(circle at 50% 45%, rgba(255, 45, 45, 0.20), transparent 32%),
+      radial-gradient(circle at 50% 42%, rgba(255, 45, 45, 0.20), transparent 32%),
       radial-gradient(circle at 25% 24%, rgba(0, 255, 120, 0.15), transparent 25%),
       linear-gradient(135deg, #020705, #181006 55%, #050505);
   }
@@ -432,7 +423,6 @@
 
     <div class="content">
       <img class="logo" src="./grumpys-logo.png" alt="Grumpy's Logo">
-      <div class="main-title">Welcome to Grumpy's</div>
       <div class="hours">Open Every Day at 11 AM</div>
       <div class="tagline" id="tagline">Cold drinks • Good food • Pull tabs • Local sports</div>
     </div>
@@ -522,11 +512,8 @@
     }
   };
 
-  let activeTheme = "normal";
-
   function setTheme(key) {
     const theme = themes[key];
-    activeTheme = key;
 
     screen.className = "screen " + theme.className;
     tagline.textContent = theme.tagline;
